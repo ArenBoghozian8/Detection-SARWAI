@@ -1,24 +1,21 @@
-#ifndef SARWAI_DETEECTION_LOGGER_LOGGER_H_
-#define SARWAI_DETEECTION_LOGGER_LOGGER_H_
+#ifndef SARWAI_DETECTION_LOGGER_DETECTION_LOGGER_H_
+#define SARWAI_DETECTION_LOGGER_DETECTION_LOGGER_H_
 
 #include <string>
 
 namespace sarwai {
-  class Logger {
+  
+  class DetectionLogger {
     public:
-    Logger(std::string base_filepath, std::string mission_id);
-    Logger(std::string base_filepath);
+    DetectionLogger(std::string base_filepath, std::string mission_id);
+    DetectionLogger(std::string base_filepath);
     // To be used when logging is done remotely
-    Logger();
-
+    DetectionLogger();
     protected:
     std::string log_filepath_;
     // Identifying suffix string to append to the log directory name.
     std::string mission_id_;
-
     void CreateLogDirectory(std::string full_dir_path);
-
-    private:
   };
 }
 

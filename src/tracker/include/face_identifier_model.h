@@ -34,8 +34,9 @@ namespace sarwai {
 
     bool done_training_ = false;
     bool done_receiving_ = false;
+    cv::Ptr<cv::face::LBPHFaceRecognizer> similarity_model_;
 
-    cv::Ptr<cv::face::FaceRecognizer> similarity_model_;
+    //cv::Ptr<cv::face::FaceRecognizer> similarity_model_;
 
     std::vector<cv::Mat> images_;
     std::vector<cv::Rect> initial_rois_;

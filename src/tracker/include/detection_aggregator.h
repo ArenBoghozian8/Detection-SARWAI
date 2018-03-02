@@ -13,6 +13,9 @@ namespace sarwai {
     cv::Ptr<cv::Tracker> tracker;
     cv::Rect bb;
     DetectionFrameId* id;
+    // Keeps track of the size of a tracker's frame buffer
+    // The frame buffer gives the tracker a few frames opportunity to recover
+    int frame_buffer_count = 0;
     private:
   };
 }

@@ -11,12 +11,13 @@
 namespace sarwai {
 
   FaceIdentifierModel::FaceIdentifierModel() {
-    this->similarity_model_ = cv::face::createLBPHFaceRecognizer(
-        2,
-        10,
-        8,
-        8
-    );
+    this->similarity_model_ = cv::face::LBPHFaceRecognizer::create(2,10,8,8);
+//    this->similarity_model_ = cv::face::createLBPHFaceRecognizer(
+//        2,
+//        10,
+//        8,
+//        8
+//    );
   }
 
   DetectionSimilarityAssociation FaceIdentifierModel::RunFacePrediction(

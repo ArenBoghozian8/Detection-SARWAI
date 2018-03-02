@@ -12,7 +12,7 @@ namespace sarwai {
     this->nh_ = new ros::NodeHandle();
 
     this->image_frame_sub_ = this->nh_->subscribe(
-      "compiled_ros_message", 10, &ImageBoundingBoxMerger::RunImageProcess, this);
+      "/compiled_ros_message", 1000, &ImageBoundingBoxMerger::RunImageProcess, this);
 
 
     //Publishes to visual_detection topic

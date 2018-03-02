@@ -8,7 +8,7 @@
 
 namespace sarwai {
 
-  AudioLogger::AudioLogger(std::string base_filepath) : Logger(base_filepath) {}
+  AudioLogger::AudioLogger(std::string base_filepath) : DetectionLogger(base_filepath) {}
 
   AudioLogger::AudioLogger() {}
 
@@ -26,6 +26,9 @@ namespace sarwai {
       return; 
     }
 
+
+    //std::string command = "scp -i ~/.ssh/hmtec2.pem ~/programming/sarwai/audio/" + data.audio_filename +" ubuntu@52.24.126.225:/home/ubuntu/visual-detection-images/";
+    //system(command.c_str());
     outfile << csv_line;
     outfile.close();
   }

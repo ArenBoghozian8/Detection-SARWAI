@@ -3,11 +3,12 @@
 
 #include <string>
 
-#include "logger.h"
+#include "detection_logger.h"
 #include "audio_detection_data.h"
 
 namespace sarwai {
-  class AudioLogger : public Logger {
+
+  class AudioLogger : public DetectionLogger {
     public:
     AudioLogger();
     AudioLogger(std::string base_filepath);

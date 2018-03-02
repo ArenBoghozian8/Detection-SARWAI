@@ -47,6 +47,7 @@ ENDIF ( X11_FOUND )
 # Find rquired packeges
 find_package(Boost REQUIRED COMPONENTS thread)
 find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
 find_package(catkin REQUIRED
   COMPONENTS
     cv_bridge
@@ -56,7 +57,6 @@ find_package(catkin REQUIRED
     actionlib
     darknet_ros_msgs
     image_transport
-    detection_msgs
 )
 
 # Enable OPENCV in darknet
@@ -76,7 +76,6 @@ catkin_package(
     std_msgs
     darknet_ros_msgs
     image_transport
-    detection_msgs
   DEPENDS
     Boost
 )
@@ -97,7 +96,6 @@ if (CUDA_FOUND)
 
   cuda_add_library(${PROJECT_NAME}_lib
     src/YoloObjectDetector.cpp
-    src/object_detector_demo.cpp
     src/image_interface.c
 
     ${DARKNET_PATH}/src/activation_layer.c        ${DARKNET_PATH}/src/im2col.c
@@ -150,7 +148,9 @@ if (CUDA_FOUND)
     cublas
     curand
     ${Boost_LIBRARIES}
+    ${OpenCV_LIBRARIES}
     ${catkin_LIBRARIES}
+    ${OpenCV_LIBS}
   )
 
   cuda_add_executable(${PROJECT_NAME}
@@ -161,7 +161,6 @@ else()
 
   add_library(${PROJECT_NAME}_lib
     src/YoloObjectDetector.cpp
-    src/object_detector_demo.cpp
     src/image_interface.c
 
     ${DARKNET_PATH}/src/activation_layer.c        ${DARKNET_PATH}/src/im2col.c
@@ -203,7 +202,9 @@ else()
     pthread
     stdc++
     ${Boost_LIBRARIES}
+    ${OpenCV_LIBRARIES}
     ${catkin_LIBRARIES}
+    ${OpenCV_LIBS}
   )
 
   add_executable(${PROJECT_NAME}
@@ -214,6 +215,10 @@ endif()
 
 target_link_libraries(${PROJECT_NAME}
   ${PROJECT_NAME}_lib
+)
+
+add_dependencies(${PROJECT_NAME}_lib
+  darknet_ros_msgs_generate_messages_cpp
 )
 
 install(TARGETS ${PROJECT_NAME}_lib

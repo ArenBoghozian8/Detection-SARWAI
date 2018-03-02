@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include <sio_client.h>
+
 #include "audio_logger.h"
 #include "audio_detection_data.h"
 
@@ -20,7 +22,13 @@ namespace sarwai {
     std::string host_addr_;
     int port_;
 
+    sio::client socket_client_;
+    // ?
+    // sio::client
+
+    std::string GenerateJSONString (struct AudioDetectionData);
     void SendData(struct AudioDetectionData data);
+    void ReceiveQueryId(sio::event &);
   };
 }
 

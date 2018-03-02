@@ -34,8 +34,10 @@ namespace sarwai {
   class VisualDetectionTracker {
 
   public:
-    void TrackFrame(const cv::Mat &image_matrix, std::vector<cv::Rect2d>, std::vector<darknet_ros_msgs::BoundingBox>);
-    void AddTrackers(const cv::Mat &image_matrix, std::vector<cv::Rect2d>, std::vector<darknet_ros_msgs::BoundingBox>);
+    //void TrackFrame(const cv::Mat &image_matrix, std::vector<cv::Rect2d>, std::vector<darknet_ros_msgs::BoundingBox>);
+    darknet_ros_msgs::BoundingBoxes TrackFrame(const cv::Mat &image_matrix, std::vector<cv::Rect2d>, std::vector<darknet_ros_msgs::BoundingBox>);
+    //void AddTrackers(const cv::Mat &image_matrix, std::vector<cv::Rect2d>, std::vector<darknet_ros_msgs::BoundingBox>);
+    darknet_ros_msgs::BoundingBoxes AddTrackers(const cv::Mat &image_matrix, std::vector<cv::Rect2d>, std::vector<darknet_ros_msgs::BoundingBox>);
     VisualDetectionTracker();
     ~VisualDetectionTracker();
     
@@ -44,10 +46,10 @@ namespace sarwai {
     ros::NodeHandle* _nh; // to get the private params
 
     TrackingAlgorithm tracking_algorithm_;
-    darknet_ros_msgs::BoundingBoxes out_going_bb;
+    //darknet_ros_msgs::BoundingBoxes out_going_bb;
 
     std::vector<DetectionAggregation> active_detections_;
-    std::vector<DetectionAggregation> past_detections_;
+    // std::vector<DetectionAggregation> past_detections_;
 
     std::vector<cv::Ptr<cv::Tracker> > trackers_;
     std::vector<cv::Rect2d> tracking_boxes_;
@@ -61,16 +63,18 @@ namespace sarwai {
 
     ros::Publisher detection_id_image_pub_;
  
-    std::queue<sensor_msgs::Image> video_image_frames_; 
-    std::queue<std::vector<darknet_ros_msgs::BoundingBox>> bounding_boxes_matrix_;  
+    // std::queue<sensor_msgs::Image> video_image_frames_; 
+    // std::queue<std::vector<darknet_ros_msgs::BoundingBox>> bounding_boxes_matrix_;  
 
     void ImageCallback(const detection_msgs::CompiledMessageConstPtr& msg);
-    void DetectionMatchCallback(const detection_msgs::DetectionMatch &msg);
+    // void DetectionMatchCallback(const detection_msgs::DetectionMatch &msg);
     void PropagateToDetectionComparer(cv::Mat, cv::Rect, DetectionFrameId*, bool);
-    void Process(int RoboId);
+    void Process(int RoboId, sensor_msgs::Image video_image_frame, std::vector<darknet_ros_msgs::BoundingBox> bounding_boxes);
     bool CheckIfRectMatchesRectVector(cv::Rect2d, std::vector<cv::Rect2d>);
     float ComputeFractionOfIntersection(cv::Rect2d, cv::Rect2d);
+    float ComputeDistance(cv::Rect2d, cv::Rect2d);
     float ComputeRectArea(cv::Rect2d);
+    float getAverageArea(cv::Rect2d, cv::Rect2d);
     void MarkDetectionComplete(int index);
   };
 }

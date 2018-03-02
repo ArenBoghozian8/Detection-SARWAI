@@ -5,13 +5,14 @@
 
 #include <opencv2/opencv.hpp>
 
-#include "logger.h"
+#include "detection_logger.h"
 #include "visual_detection_data.h"
 
 namespace sarwai {
-  class VisualLogger : public Logger {
+  class VisualLogger : public DetectionLogger {
     public:
     VisualLogger(std::string base_filepath);
+    VisualLogger();
     // Returns saved image filename
     std::string Log(cv::Mat image, struct VisualDetectionData detection_data);
 
@@ -19,9 +20,9 @@ namespace sarwai {
     std::string GenerateStringCSV(struct VisualDetectionData data, std::string image_filename);
     
     void LocalSaveDetectionData(struct VisualDetectionData data, std::string saved_image_filename);
-    std::string SaveImage(cv::Mat image);
+    std::string SaveImage(cv::Mat image, int robot_id);
 
-    std::string GenerateImageFilename();
+    std::string GenerateImageFilename(int robot_id);
     std::string GenerateTextLogFilename();
 
     int ImageSuffixIterator();

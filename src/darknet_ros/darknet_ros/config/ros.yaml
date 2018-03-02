@@ -4,22 +4,6 @@ subscribers:
     topic: /webcam/image_raw
     queue_size: 1
 
-  robot_one:
-    topic: /webcam1/image_raw
-    queue_size: 1
-  
-  robot_two:
-    topic: /webcam2/image_raw
-    queue_size: 1
-
-  robot_three:
-    topic: /webcam3/image_raw
-    queue_size: 1
-
-  robot_four:
-    topic: /webcam4/image_raw
-    queue_size: 1
-
 actions:
 
   camera_reading:
